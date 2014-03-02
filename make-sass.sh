@@ -53,19 +53,29 @@ dirMaker () {
 # checks if $1 exists, creates it if it doesn't
 fileMaker () {
     if [ -z "$1" ];                           # Is parameter #1 zero length?
-        then
-            echo "filename missing"          # Or no parameter passed.
-            return 1
+    then
+        echo "filename missing"          # Or no parameter passed.
+        return 1
     fi
 
     if [ ! -f "$1" ]; 
+    then
+        # do we have a file to copy?
+        if [ -z "$2" ];
         then
+            # no
             echo "Making file $1"
             touch $1
             return 0
         else
-            echo "File $1 exists; moving on..."
+            # yes
+            echo "Copying file $2"
+            cp "$2" "./"
             return 0
+        fi
+    else
+        echo "File $1 exists; moving on..."
+        return 0
     fi
 }
 
@@ -74,7 +84,7 @@ fileMaker () {
 
 dirMaker "stylesheets"
 cd stylesheets
-    fileMaker   "main.css"
+    fileMaker   "main.scss" "$HOME/dev-tools/sass-files/main.scss"
 
     # modules
     dirMaker    "modules"
