@@ -140,4 +140,5 @@ gem install tmuxinator
 # fixes alt-3 on UK Mac keyboards to get a '#'
 source ~/edt/mac_uk_hashfix.sh
 
+source ~/edt/vim-packages.sh
 
