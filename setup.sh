@@ -20,7 +20,8 @@ sudo apt-get install -y python-pip
 
 
 # Dev tools
-sudo app-get install -y virtualenv
+pip install virtualenv
+sudo apt-get install -y virtualenvwrapper
 sudo apt-get install -y libmysqlclient-dev
 sudo apt-get install -y libxml2-dev
 sudo apt-get install -y libxslt1-dev
