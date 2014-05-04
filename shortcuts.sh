@@ -55,6 +55,23 @@ google()
 
 alias gbr="/opt/google/chrome/google-chrome ./" 
 
+
+# Mysql
+
+# msqldump <db name>
+# asks for password
+# outputs <db name>-<timestamp>.dump
+function mdump() {
+    if [ $# -lt 1 ]; then
+        echo 1>&2 "$0: not enough arguments"
+    else
+        timestamp=$(date +%s)
+        mysqldump -uroot -p$2 --opt $1 > $1-$timestamp.dump
+    fi
+}
+
+
+
 # Browse and edit tools
 ## cx = CD filename*
 ## xc = CD *filename
@@ -123,4 +140,21 @@ xv()
 #    kill $(ps ax | grep 'ssh db[0-9]' | awk '{print $1}')
 #}
 
+# erun <app folder>
+function erun() {
+    $1/manage.py runserver 0.0.0.0:8000
+}
+
+function msqlr() {
+    mysql -uroot -p$1
+}
+
+function makereqs() {
+    if [ -f requirements.old ]; then
+        rm -f requirements.old
+    fi
+
+    mv requirements.txt requirements.old
+    pip freeze > requirements.txt
+}
 
