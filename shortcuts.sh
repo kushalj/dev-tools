@@ -58,7 +58,7 @@ alias gbr="/opt/google/chrome/google-chrome ./"
 
 # Mysql
 
-# msqldump <db name>
+# mdump <db name>
 # asks for password
 # outputs <db name>-<timestamp>.dump
 function mdump() {
@@ -66,10 +66,20 @@ function mdump() {
         echo 1>&2 "$0: not enough arguments"
     else
         timestamp=$(date +%s)
-        mysqldump -uroot -p$2 --opt $1 > $1-$timestamp.dump
+        mysqldump -uroot -p --opt $1 > $1-$timestamp.dump
     fi
 }
 
+# mrestore digitals1 <db dump-file>.dump
+# asks for password 
+# requires sql .dump file
+function mrestore() {
+    if [ $# -lt 2 ]; then
+        echo 1>&2 "$0: not enough arguments"
+    else
+        mysql -uroot -p $1 < $2  
+    fi
+}
 
 
 # Browse and edit tools
